@@ -5,6 +5,14 @@ import Users from './components/users/Users';
 import axios from 'axios'
 import Search from './components/Search';
 import Alert from './components/layout/Alert';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import { About } from './components/Pages/About';
+
 class App extends React.Component {
   state = {
     users: [],
@@ -35,22 +43,34 @@ class App extends React.Component {
   render() {
     const { users, loading } = this.state;
     return (
-      <div className="App">
-        <Navbar
-        />
-        <div className="container">
-          <Alert alert={this.state.alert} />
-          <Search searchUsers={this.searchUsers}
-            clearUsers={this.clearUsers}
-            showClear={users.length > 0 ? true : false}
-            setAlert={this.setAlert}
+      <Router>
+        <div className="App">
+          <Navbar
           />
+          <div className="container">
+            <Alert alert={this.state.alert} />
+            <Switch>
+              <Route exact path='/' render={props => (
+                <Fragment>
+                  <Search searchUsers={this.searchUsers}
+                    clearUsers={this.clearUsers}
+                    showClear={users.length > 0 ? true : false}
+                    setAlert={this.setAlert}
+                  />
 
-          <Users loading={loading} users={users} />
+                  <Users loading={loading} users={users} />
+                </Fragment>
+              )} />
+              <Route exact path="/about" component={About} />
+
+            </Switch>
+
+
+          </div>
 
         </div>
+      </Router>
 
-      </div>
     );
   }
 
