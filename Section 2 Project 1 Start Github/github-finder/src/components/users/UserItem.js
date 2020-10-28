@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-const UserItem = ({ user: { login, avatar_url, html_url } }) => {
+import { Link } from 'react-router-dom'
+const UserItem = ({ user: { login, avatar_url } }) => {
 
     return (
         <div className="card text-center">
@@ -10,7 +11,7 @@ const UserItem = ({ user: { login, avatar_url, html_url } }) => {
                 alt="" />
             <h3>{login}</h3>
             <div>
-                <a href={html_url} className="a btn btn-dark btn-sm my-1" >{login}</a>
+                <Link to={`/user/${login}`} className="a btn btn-dark btn-sm my-1" >{login}</Link>
             </div>
         </div>
     )
